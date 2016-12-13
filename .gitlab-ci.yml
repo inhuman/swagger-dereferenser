@@ -47,7 +47,7 @@ tag for release:
     - master
   except:
     - tags
-  when: success
+  when: manual
   tags:
     - linux
     - docker

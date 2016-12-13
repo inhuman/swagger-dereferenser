@@ -2,12 +2,6 @@
   "name": "php-lib/project_name",
   "description": "some project",
   "license": "proprietary",
-  "authors": [
-    {
-      "name": "",
-      "email": ""
-    }
-  ],
   "require": {
     "php":">=7.1"
   },
@@ -15,6 +9,6 @@
     "codeception/codeception": ">=2.2 <2.2.7"
   },
   "autoload": {
-    "Orbitum\\": "/src/Orbitum/"
+    "Orbitum\\": "./src/Orbitum/"
   }
 }
