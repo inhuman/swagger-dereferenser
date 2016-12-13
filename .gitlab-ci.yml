@@ -1,0 +1,67 @@
+stages:
+  - tests
+  - release
+  - deploy
+  
+tests:
+  image: registry.orbitum.com/web-php-alpine
+  stage: tests
+  script:
+    - echo "run tests"  # - composer update -n
+                        # - vendor/bin/codecept run
+  only:
+    - branches
+  except:
+    - tags
+  tags:
+    - linux
+    - docker
+  cache:
+    key: ${CI_PROJECT_PATH}
+    paths:
+      - ./vendor
+      - ./composer.lock
+      
+deploy for testing:
+  stage: deploy
+  environment: 
+    name: testing
+    #url: http://testing.project.local //optional
+  script:
+    - echo "deploy dev"
+    # - updater service-name 'composer update -n' //some commands for deploy
+  only:
+    - master
+  except:
+    - tags
+  tags:
+    - linux
+    - shell
+    
+tag for release:
+  stage: release
+  image: registry.orbitum.com/version-gen
+  script:
+    - /root/version/bin/markBuild
+  only:
+    - master
+  except:
+    - tags
+  tags:
+    - linux
+    - docker
+    
+delpoy to production:
+  stage: deploy
+  environment:
+    name: production
+    #url: http://production.com //optional
+  script:
+    - echo "deploy production" # some commands for prod deploy
+  only:
+    - tags
+  except:
+    - branches
+  tags:
+    - linux
+    - shell
