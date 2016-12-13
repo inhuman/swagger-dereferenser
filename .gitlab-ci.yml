@@ -38,7 +38,7 @@ deploy for testing:
     - linux
     - shell
     
-tag for release:
+Create Release:
   stage: release
   image: registry.orbitum.com/version-gen
   script:
