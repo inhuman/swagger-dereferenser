@@ -47,6 +47,7 @@ tag for release:
     - master
   except:
     - tags
+  when: manual
   tags:
     - linux
     - docker
@@ -60,8 +61,6 @@ delpoy to production:
     - echo "deploy production" # some commands for prod deploy
   only:
     - tags
-  except:
-    - branches
   tags:
     - linux
     - shell
