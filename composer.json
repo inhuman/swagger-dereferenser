@@ -3,7 +3,7 @@
   "description": "some project",
   "license": "proprietary",
   "require": {
-    "php":">=7.1"
+    "php":">=7.0"
   },
   "require-dev": {
     "codeception/codeception": ">=2.2 <2.2.7"

@@ -4,7 +4,7 @@ stages:
   - deploy
   
 tests:
-  image: registry.orbitum.com/web-php-alpine
+  image: registry.orbitum.com/web-php7-dev
   stage: tests
   script:
     - echo "run tests"  # - composer update -n
