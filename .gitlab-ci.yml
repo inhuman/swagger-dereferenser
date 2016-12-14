@@ -7,8 +7,8 @@ tests:
   image: registry.orbitum.com/web-php7-dev
   stage: tests
   script:
-    - echo "run tests"  # - composer update -n
-                        # - vendor/bin/codecept run
+    - composer update -n
+    - vendor/bin/codecept run --coverage --no-colors
   only:
     - branches
   except:

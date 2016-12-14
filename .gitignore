@@ -25,3 +25,4 @@
 # composer
 /vendor/
 composer.lock
+tests/_output/*

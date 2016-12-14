@@ -3,12 +3,14 @@
   "description": "some project",
   "license": "proprietary",
   "require": {
-    "php":">=7.0"
+    "php": ">=7.0"
   },
   "require-dev": {
     "codeception/codeception": ">=2.2 <2.2.7"
   },
   "autoload": {
-    "Orbitum\\": "./src/Orbitum/"
+    "psr-4": {
+      "Orbitum\\": "./src/Orbitum/"
+    }
   }
 }
