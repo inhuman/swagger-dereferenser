@@ -8,6 +8,7 @@ tests:
   stage: tests
   script:
     - composer update -n
+    - vendor/bin/codecept build
     - vendor/bin/codecept run --coverage --no-colors
   only:
     - branches
@@ -38,7 +39,7 @@ deploy for testing:
     - linux
     - shell
     
-Create Release:
+create release:
   stage: release
   image: registry.orbitum.com/version-gen
   script:
@@ -51,6 +52,24 @@ Create Release:
   tags:
     - linux
     - docker
+
+create version shield:
+  stage: deploy
+  script:
+    - git clone git@orbitumdev.ru:${CI_PROJECT_PATH}.wiki.git wiki
+    - cd wiki
+    - curl https://img.shields.io/badge/release-${CI_BUILD_TAG}-blue.svg > version.svg
+    - git add .
+    - git commit -m "Update version shield"
+    - git push origin master
+    - cd ..
+    - rm -rfv wiki
+  when: on_success
+  only:
+    - tags
+  tags:
+    - linux
+    - shell
     
 delpoy to production:
   stage: deploy
