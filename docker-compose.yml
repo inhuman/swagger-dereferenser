@@ -1,0 +1,6 @@
+version: '2'
+services:
+  generic:
+    image: registry.orbitum.com/web-php7-dev
+    volumes:
+      - ./:/app
