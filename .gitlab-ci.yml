@@ -4,7 +4,7 @@ stages:
   - deploy
   
 tests:
-  image: registry.orbitum.com/web-php7-dev
+  image: registry.orbitumdev.ru/docker-images/web-php-dev
   stage: tests
   script:
     - composer update -n
@@ -41,7 +41,7 @@ deploy for testing:
     
 create release:
   stage: release
-  image: registry.orbitum.com/version-gen
+  image: registry.orbitumdev.ru/theinpu/version
   script:
     - /root/version/bin/markBuild
   only:
