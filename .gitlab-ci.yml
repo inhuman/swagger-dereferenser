@@ -4,7 +4,7 @@ stages:
   - deploy
   
 tests:
-  image: registry.orbitumdev.ru/docker-images/web-php-dev
+  image: registry.orbitumdev.ru/docker-images/web-php7-dev
   stage: tests
   script:
     - composer update -n
