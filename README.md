@@ -15,7 +15,7 @@
     "repositories": [
         {
           "type": "composer",
-          "url": "http://docker-developer-host-01.local:5000/"
+          "url": "composer.services.local/"
         }
     ],
     "config": {
