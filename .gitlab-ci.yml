@@ -7,6 +7,7 @@ tests:
   image: registry.orbitumdev.ru/docker-images/web-php7-dev
   stage: tests
   script:
+    - mv composer.json.dist composer.json
     - composer update -n
     - vendor/bin/codecept build
     - vendor/bin/codecept run --coverage --no-colors
