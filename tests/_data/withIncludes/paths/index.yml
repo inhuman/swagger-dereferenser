@@ -1,0 +1,4 @@
+/foo:
+  $ref: ./foo.yml
+/bar:
+  $ref: ./bar.yml

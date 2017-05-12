@@ -1,6 +1,6 @@
 {
-  "name": "php-lib/project_name",
-  "description": "some project",
+  "name": "idconstruct/swagger-dereferenser",
+  "description": "Swagger Dereferenser",
   "license": "proprietary",
   "require": {
     "php": ">=7.0"
