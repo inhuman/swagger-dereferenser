@@ -21,6 +21,46 @@ class DereferenserTest extends \Codeception\Test\Unit
     // tests
     public function testDereferenser()
     {
-        $dereferenser = new Dereferenser('tests/_data/withIncludes/index.yml');
+        $swaggerSpec = Dereferenser::dereferense('tests/_data/withIncludes/index.yml');
+
+        $this->assertEquals([
+            'swagger' => '2.0',
+            'info' => [
+                'version' => '0.0.0',
+                'title' => 'Simple API'
+            ],
+            'paths' => [
+                '/foo' => [
+                    'get' => [
+                        'responses' =>[
+                            200 => [
+                                'description' => 'OK'
+                            ]
+                        ]
+                    ]
+                ],
+                '/bar' => [
+                    'get' => [
+                        'responses' =>[
+                            200 => [
+                                'description' => 'OK'
+                            ]
+                        ]
+                    ]
+                ],
+            ],
+            'definitions' => [
+                'User' => [
+                    'type' => 'object',
+                    'properties' => [
+                        'name' => [
+                            'type' => 'string'
+                        ]
+                    ]
+                ]
+            ]
+        ], $swaggerSpec);
+
     }
 }
+
