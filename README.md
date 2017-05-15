@@ -1,33 +1,67 @@
-# Generic phpStorm project
-[![latest version](https://orbitumdev.ru/php-lib/generic/wikis/version.svg)](https://orbitumdev.ru/php-lib/generic/tags)
-[![build status](https://orbitumdev.ru/php-lib/generic/badges/master/build.svg)](https://orbitumdev.ru/php-lib/generic/commits/master)
-[![coverage report](https://orbitumdev.ru/php-lib/generic/badges/master/coverage.svg)](https://orbitumdev.ru/php-lib/generic/commits/master)  
-
+# Swagger Dereferenser
 ---
+Uses for combine splited reference swagger files to one array
 
-## Использование
-`composer.json`
-````json
-{
-    "require": {
-        "php-lib/generic": "~0"
-    },
-    "repositories": [
-        {
-          "type": "composer",
-          "url": "composer.services.local/"
-        }
+## Usage
+1. Put files with references as on schema
+(for more detail see [here](http://azimi.me/2015/07/16/split-swagger-into-smaller-files.html))
+```
+swagger
+├── index.yaml
+├── info
+│   └── index.yaml
+├── definitions
+│   └── index.yaml
+│   └── User.yaml
+└── paths
+    ├── index.yaml
+    ├── bar.yaml
+    └── foo.yaml
+```
+
+2. Dereferense files 
+````php
+$swaggerSpec = Dereferenser::dereferense('swagger/index.yml');
+````
+
+3. PROFIT! 
+
+```php
+[
+    'swagger' => '2.0',
+    'info' => [
+        'version' => '0.0.0',
+        'title' => 'Simple API'
     ],
-    "config": {
-        "secure-http": false 
-    }
-}
-````
-
-## Запуск тестов в докере (нужен докер-композ)
-````shell
-#prepare
-> docker-compose run --rm <generic> composer update
-#run
-> docker-compose run --rm <generic> vendor/bin/codecept run 
-````
+    'paths' => [
+        '/foo' => [
+            'get' => [
+                'responses' =>[
+                    200 => [
+                        'description' => 'OK'
+                    ]
+                ]
+            ]
+        ],
+        '/bar' => [
+            'get' => [
+                'responses' =>[
+                    200 => [
+                        'description' => 'OK'
+                    ]
+                ]
+            ]
+        ],
+    ],
+    'definitions' => [
+        'User' => [
+            'type' => 'object',
+            'properties' => [
+                'name' => [
+                    'type' => 'string'
+                ]
+            ]
+        ]
+    ]
+]
+```

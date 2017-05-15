@@ -9,7 +9,9 @@ class Dereferenser
     const REF_VAR_NAME = '$ref';
     const INDEX_NAME = 'index.yml';
     const LOCAL_DEF_SYMBOL = '#';
-    private $indexPath;
+    private $indexPath = null;
+
+    private $curDir;
 
     private function __construct($indexPath)
     {
@@ -20,18 +22,40 @@ class Dereferenser
         $this->indexPath = $indexPath;
     }
 
+    /**
+     * @param $indexPath
+     * @return array
+     */
     public static function dereferense($indexPath)
     {
         $dereferenser = new self($indexPath);
+
+        $dereferenser->mapRefDir($indexPath);
+
         return $dereferenser->parse();
     }
 
-
+    /**
+     * @return array
+     */
     private function parse()
     {
        return $this->findRef(Yaml::parse(file_get_contents($this->indexPath)));
     }
 
+
+    private function mapRefDir($indexPath) {
+
+        print_r(scandir(dirname($indexPath)));
+
+    }
+
+
+    /**
+     * @param $data
+     * @param null $refPath
+     * @return array
+     */
     private function findRef($data, $refPath = null)
     {
         $newData = [];
@@ -57,9 +81,28 @@ class Dereferenser
         return $newData;
     }
 
+    /**
+     * @param $path
+     * @param $refPath
+     * @return mixed
+     */
     private function getRefContents($path, $refPath)
     {
-        return Yaml::parse(file_get_contents($this->calculateFilePath($path, $refPath)));
+        //TODO: find out how resolve ref dir
+        // extra arr with indexes.ymls and paths?
+
+        // [
+        //   ['someKey?'] => 'index_dir_path'
+        // ]
+        //
+        // scan dir and key may be an hash of file path ?
+
+
+        $ref = Yaml::parse(file_get_contents($this->calculateFilePath($path, basename($this->curDir))));
+
+        $this->curDir = dirname($this->calculateFilePath($path, $this->curDir));
+
+        return $ref;
     }
 
     /**
@@ -80,6 +123,11 @@ class Dereferenser
         return $path;
     }
 
+    /**
+     * @param array $array
+     * @param $needle
+     * @return bool
+     */
     public function recursiveFind(array $array, $needle)
     {
         $iterator = new \RecursiveArrayIterator($array);

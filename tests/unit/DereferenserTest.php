@@ -21,7 +21,7 @@ class DereferenserTest extends \Codeception\Test\Unit
     // tests
     public function testDereferenser()
     {
-        $swaggerSpec = Dereferenser::dereferense('tests/_data/withIncludes/index.yml');
+        $swaggerSpec = Dereferenser::dereferense('tests/_data/yml/index.yml');
 
         $this->assertEquals([
             'swagger' => '2.0',

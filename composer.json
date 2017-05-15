@@ -3,7 +3,8 @@
   "description": "Swagger Dereferenser",
   "license": "proprietary",
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "league/json-reference": "*"
   },
   "require-dev": {
     "codeception/codeception": ">=2.2 <2.2.7"
